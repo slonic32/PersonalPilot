@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-release:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
@@ -30,27 +30,24 @@ jobs:
         run: choco install mingw
 
       - name: Build project
-        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
-        run: make
-
-      - name: Build project
-        if: matrix.os == 'windows-latest'
-        run: mingw32-make
+        run: |
+          if [ "${{ matrix.os }}" != "windows-latest" ]; then
+            make
+          else
+            mingw32-make
+          fi
 
       - name: Package artifacts
-        run: mkdir -p release
-        if: success()
-        working-directory: ${{ matrix.os }}
-        with:
-          linux: |
-            cp bin/personalpilot ../release/personalpilot-linux
-          macOS-latest: |
-            cp bin/personalpilot ../release/personalpilot-macos
-          windows-latest: |
+        run: |
+          mkdir -p release
+          if [ "${{ matrix.os }}" != "windows-latest" ]; then
+            cp bin/personalpilot ../release/personalpilot-${{ matrix.os }}
+          else
             cp bin/personalpilot.exe ../release/personalpilot-windows.exe
+          fi
+        working-directory: ${{ matrix.os }}
 
       - name: Upload artifacts
-        if: success()
         uses: actions/upload-artifact@v2
         with:
           name: executables
