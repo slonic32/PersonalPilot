@@ -9,30 +9,25 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [windows-latest]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up build environment
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y g++
-
-      - name: Set up build environment
-        if: matrix.os == 'macOS-latest'
-        run: brew install gcc
+        if: matrix.os == 'windows-latest'
+        run: choco install mingw
 
       - name: Build project
-        run: make
+
+        run: mingw32-make
 
       - name: Create release directory
         run: mkdir -p release
 
       - name: Copy executable to release directory
-        run: cp bin/personalpilot release/personalpilot-${{ matrix.os }}
+        run: cp bin/personalpilot.exe release/personalpilot-windows.exe
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
