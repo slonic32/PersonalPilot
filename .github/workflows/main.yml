@@ -39,11 +39,11 @@ jobs:
 
       - name: Package artifacts
         run: |
-          mkdir -p release
+          mkdir -p ${{ github.workspace }}/release
           if [ "${{ matrix.os }}" != "windows-latest" ]; then
-            cp bin/personalpilot ../release/personalpilot-${{ matrix.os }}
+            cp bin/personalpilot ${{ github.workspace }}/release/personalpilot-${{ matrix.os }}
           else
-            cp bin/personalpilot.exe ../release/personalpilot-windows.exe
+            cp bin/personalpilot.exe ${{ github.workspace }}/release/personalpilot-windows.exe
           fi
         working-directory: ${{ github.workspace }}
 
