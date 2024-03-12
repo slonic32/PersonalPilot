@@ -1,35 +1,33 @@
 name: Build and Release
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_STEP_DEBUG: true
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Set up build environment
-        run: sudo apt-get update && sudo apt-get install -y g++
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++
 
       - name: Build project
         run: make
 
       - name: Create release directory
         run: mkdir -p release
+          ls
 
-      - name: Copy executables to release directory
-        run: |
-          cp bin/personalpilot release/
+      - name: Copy executable to release directory
+        run: cp bin/personalpilot release/
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: executables
           path: release
