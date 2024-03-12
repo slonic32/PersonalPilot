@@ -1,6 +1,7 @@
+#include "Task.h"
 #include "ReportGenerator.h"
+#include <vector>
 #include <iostream>
-#include <ctime>
 
 void ReportGenerator::generateAllTasksReport(const std::vector<Task> &tasks)
 {

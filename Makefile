@@ -11,25 +11,39 @@ BUILD_DIR := build
 BIN_DIR := bin
 
 # Source files
-SRCS := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(LIB_DIR)/*.cpp)
+SRCS := $(SRC_DIR)/main.cpp $(LIB_DIR)/Task.cpp $(LIB_DIR)/Timeline.cpp \
+		$(LIB_DIR)/ReportGenerator.cpp $(LIB_DIR)/FakeStorageAPI.cpp \
+		$(LIB_DIR)/CLI.cpp
 
 # Object files
-OBJS := $(SRCS:%.cpp=%.o)
+OBJS := $(BUILD_DIR)/main.o $(BUILD_DIR)/Task.o $(BUILD_DIR)/Timeline.o \
+		$(BUILD_DIR)/ReportGenerator.o $(BUILD_DIR)/FakeStorageAPI.o \
+		$(BUILD_DIR)/CLI.o
 
 # Executable name
-EXEC := $(BIN_DIR)/main
+EXEC := $(BIN_DIR)/personalpilot
 
-.PHONY: all clean
+.PHONY: clean
 
 all: $(EXEC)
 
-$(EXEC): $(OBJS)
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) $^ -o $@
+$(EXEC): $(BIN_DIR) $(OBJS)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS)
 
-%.o: %.cpp
-	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
+$(OBJS): $(BUILD_DIR) $(SRCS)
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/main.o $(SRC_DIR)/main.cpp 
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/Task.o $(LIB_DIR)/Task.cpp 
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/Timeline.o $(LIB_DIR)/Timeline.cpp 
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/ReportGenerator.o $(LIB_DIR)/ReportGenerator.cpp 
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/FakeStorageAPI.o $(LIB_DIR)/FakeStorageAPI.cpp 
+	$(CC) $(CFLAGS) -c -o $(BUILD_DIR)/CLI.o $(LIB_DIR)/CLI.cpp 
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+	
 
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)

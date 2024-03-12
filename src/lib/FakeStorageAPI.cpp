@@ -2,6 +2,7 @@
 #include "FakeStorageAPI.h"
 #include "Timeline.h"
 #include "Task.h"
+#include "string"
 
 Timeline FakeStorageAPI::getExampleTimeline()
 {

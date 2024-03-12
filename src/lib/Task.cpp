@@ -1,24 +1,26 @@
 #include "Task.h"
 
+int Task::lastID = 1; // Initialize static member
+
 // Constructor
 Task::Task(std::string name, bool status)
 {
     this->id = Task::generateID();
     this->name = name;
-    //  this->description = description;
+    this->description = "";
     this->status = status;
-    //  this->priority = priority;
-    //  this->deadline = deadline;
+    this->priority = 0;
+    this->deadline = std::chrono::system_clock::now();
 }
 // copy constructor
-Task::Task(Task &otherTask)
+Task::Task(const Task &otherTask)
 {
     this->id = otherTask.id;
     this->name = otherTask.name;
-    //  this->description = otherTask.description;
+    this->description = otherTask.description;
     this->status = otherTask.status;
-    //  this->priority = otherTask.priority;
-    //  this->deadline = otherTask.deadline;
+    this->priority = otherTask.priority;
+    this->deadline = otherTask.deadline;
 }
 
 // Getters and Setters
