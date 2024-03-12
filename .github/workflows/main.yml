@@ -45,7 +45,7 @@ jobs:
           else
             cp bin/personalpilot.exe ../release/personalpilot-windows.exe
           fi
-        working-directory: ${{ matrix.os }}
+        working-directory: ${{ github.workspace }}
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
