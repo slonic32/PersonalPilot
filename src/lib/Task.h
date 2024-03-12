@@ -25,7 +25,7 @@ public:
     // temporary version without description, priority and deadline
     Task(std::string name, bool status);
     // copy constructor
-    Task(Task &otherTask);
+    Task(const Task &otherTask);
 
     // Getters and Setters
     int getId() const;

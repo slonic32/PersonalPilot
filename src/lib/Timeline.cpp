@@ -1,8 +1,9 @@
+#include "Task.h"
 #include "Timeline.h"
+#include <vector>
 #include <algorithm>
-#include <iostream>
 
-void Timeline::addTask(const Task task)
+void Timeline::addTask(const Task &task)
 {
     tasks.push_back(task);
 }
