@@ -1,0 +1,57 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up build environment
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install -y g++
+
+      - name: Set up build environment
+        if: matrix.os == 'macOS-latest'
+        run: brew install gcc
+
+      - name: Set up build environment
+        if: matrix.os == 'windows-latest'
+        run: choco install mingw
+
+      - name: Build project
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest'
+        run: make
+
+      - name: Build project
+        if: matrix.os == 'windows-latest'
+        run: mingw32-make
+
+      - name: Package artifacts
+        run: mkdir -p release
+        if: success()
+        working-directory: ${{ matrix.os }}
+        with:
+          linux: |
+            cp bin/personalpilot ../release/personalpilot-linux
+          macOS-latest: |
+            cp bin/personalpilot ../release/personalpilot-macos
+          windows-latest: |
+            cp bin/personalpilot.exe ../release/personalpilot-windows.exe
+
+      - name: Upload artifacts
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: executables
+          path: release
