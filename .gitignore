@@ -33,3 +33,14 @@
 
 # VScode
 .vscode/*
+
+# Compiled object files
+/build/
+
+# Compiled executables
+/bin/
+
+# Ignore any local or temporary files
+.DS_Store
+*.swp
+
