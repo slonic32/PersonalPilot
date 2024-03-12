@@ -51,5 +51,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: personalpilot
+          name: personalpilot_${{ matrix.os }}
           path: release
