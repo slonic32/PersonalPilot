@@ -11,7 +11,7 @@ PersonalPilot is a simple task management system designed to help you organize y
 
 ## Getting Started
 
-To get started with PersonalPilot, follow these steps:
+To get started with PersonalPilot, download the precompiled version from the releases page or follow these steps:
 
 1. Clone this repository to your local machine.
 2. Build the project using your preferred build system.
