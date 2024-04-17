@@ -13,6 +13,8 @@ private:
     void handleAddTask();
     void handleRemoveTask();
     void handleGenerateReport();
+    void handleEditTask();
+    void handleMarkTaskComplete();
     void handleExit();
 
 public:

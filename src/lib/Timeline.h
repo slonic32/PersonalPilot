@@ -14,6 +14,7 @@ public:
     void addTask(const Task &task);
     void removeTask(int id);
     std::vector<Task> getAllTasks() const;
+    Task *findTask(int id);
 };
 
 #endif // TIMELINE_H

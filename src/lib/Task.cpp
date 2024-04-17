@@ -121,3 +121,12 @@ std::string to_string(Task::Priority priority)
         return "Unknown";
     }
 }
+
+std::chrono::system_clock::time_point Task::stringToTime(const std::string &timeStr)
+{
+    std::istringstream ss(timeStr);
+    std::tm tm = {};
+    ss >> std::get_time(&tm, "%Y-%m-%dT%H:%M:%S");
+    std::time_t t = std::mktime(&tm);
+    return std::chrono::system_clock::from_time_t(t);
+}
