@@ -5,7 +5,7 @@
 #include "Task.h"
 #include "Timeline.h"
 
-class FakeStorageAPI
+class
 {
 public:
     static Timeline getExampleTimeline();

@@ -12,10 +12,18 @@ private:
     std::string name;
     std::string description;
     bool status; // true if active, false otherwise
-    int priority;
     std::chrono::system_clock::time_point deadline;
     // generate ID
     static int generateID();
+
+    // Add a member variable to store task priority
+    enum class Priority
+    {
+        High,
+        Medium,
+        Low
+    };
+    Priority priority;
 
 public:
     // Constructor
@@ -23,7 +31,7 @@ public:
     // full constructor will be implemented later
     //   Task(int id, std::string name, std::string description, bool status, int priority, std::chrono::system_clock::time_point deadline);
     // temporary version without description, priority and deadline
-    Task(std::string name, bool status);
+    Task(std::string name, bool status, Priority priority, std::chrono::system_clock::time_point deadline);
     // copy constructor
     Task(const Task &otherTask);
 
@@ -36,21 +44,19 @@ public:
 
     bool getStatus() const;
 
-    int getPriority() const;
-
-    std::chrono::system_clock::time_point getDeadline() const;
-
     void setName(std::string name);
 
     void setDescription(std::string description);
 
     void setStatus(bool status);
 
-    void setPriority(int priority);
-
-    void setDeadline(std::chrono::system_clock::time_point deadline);
-
     static void setLastID(int _lastID);
+
+    void setPriority(Priority priority);
+    Priority getPriority() const;
+
+        void setDeadline(std::chrono::system_clock::time_point deadline);
+    std::chrono::system_clock::time_point getDeadline() const;
 };
 
 #endif // TASK_H

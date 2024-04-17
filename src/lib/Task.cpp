@@ -3,15 +3,16 @@
 int Task::lastID = 1; // Initialize static member
 
 // Constructor
-Task::Task(std::string name, bool status)
+Task::Task(std::string name, bool status, Priority priority, std::chrono::system_clock::time_point deadline)
 {
     this->id = Task::generateID();
     this->name = name;
     this->description = "";
     this->status = status;
-    this->priority = 0;
-    this->deadline = std::chrono::system_clock::now();
+    this->priority = priority;
+    this->deadline = deadline;
 }
+
 // copy constructor
 Task::Task(const Task &otherTask)
 {
@@ -40,10 +41,7 @@ bool Task::getStatus() const
 {
     return status;
 }
-int Task::getPriority() const
-{
-    return priority;
-}
+
 std::chrono::system_clock::time_point Task::getDeadline() const
 {
     return deadline;
@@ -61,10 +59,7 @@ void Task::setStatus(bool status)
 {
     this->status = status;
 }
-void Task::setPriority(int priority)
-{
-    this->priority = priority;
-}
+
 void Task::setDeadline(std::chrono::system_clock::time_point deadline)
 {
     this->deadline = deadline;
@@ -80,4 +75,14 @@ int Task::generateID()
 {
     lastID++;
     return lastID;
+}
+
+void Task::setPriority(Priority priority)
+{
+    this->priority = priority;
+}
+
+Task::Priority Task::getPriority() const
+{
+    return priority;
 }
