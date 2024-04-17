@@ -86,3 +86,38 @@ Task::Priority Task::getPriority() const
 {
     return priority;
 }
+
+// Overload << operator to print priority
+std::ostream &operator<<(std::ostream &out, const Task::Priority &priority)
+{
+    out << "Priority: ";
+    switch (priority)
+    {
+    case Task::Priority::High:
+        out << "High";
+        break;
+    case Task::Priority::Medium:
+        out << "Medium";
+        break;
+    case Task::Priority::Low:
+        out << "Low";
+        break;
+    }
+    out << "\n";
+    return out;
+}
+
+std::string to_string(Task::Priority priority)
+{
+    switch (priority)
+    {
+    case Task::Priority::High:
+        return "High";
+    case Task::Priority::Medium:
+        return "Medium";
+    case Task::Priority::Low:
+        return "Low";
+    default:
+        return "Unknown";
+    }
+}

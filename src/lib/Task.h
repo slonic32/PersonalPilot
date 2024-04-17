@@ -55,8 +55,13 @@ public:
     void setPriority(Priority priority);
     Priority getPriority() const;
 
-        void setDeadline(std::chrono::system_clock::time_point deadline);
+    // Overload << operator to print priority
+    friend std::ostream &operator<<(std::ostream &os, const Priority &priority);
+
+    void setDeadline(std::chrono::system_clock::time_point deadline);
     std::chrono::system_clock::time_point getDeadline() const;
+
+    friend std::string to_string(Priority priority);
 };
 
 #endif // TASK_H
