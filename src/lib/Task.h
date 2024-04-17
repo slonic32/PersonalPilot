@@ -3,9 +3,19 @@
 
 #include <string>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 
 class Task
 {
+public:
+    enum class Priority
+    {
+        High,
+        Medium,
+        Low
+    };
+
 private:
     static int lastID;
     int id;
@@ -17,12 +27,7 @@ private:
     static int generateID();
 
     // Add a member variable to store task priority
-    enum class Priority
-    {
-        High,
-        Medium,
-        Low
-    };
+
     Priority priority;
 
 public:
@@ -62,6 +67,8 @@ public:
     std::chrono::system_clock::time_point getDeadline() const;
 
     friend std::string to_string(Priority priority);
+
+    static std::chrono::system_clock::time_point stringToTime(const std::string &timeStr);
 };
 
 #endif // TASK_H

@@ -19,3 +19,15 @@ std::vector<Task> Timeline::getAllTasks() const
 {
     return tasks;
 }
+
+Task *Timeline::findTask(int id)
+{
+    for (auto &task : tasks)
+    {
+        if (task.getId() == id)
+        {
+            return &task; // Return a pointer to the task if found
+        }
+    }
+    return nullptr; // Return nullptr if task with given ID is not found
+}
