@@ -10,6 +10,7 @@ private:
     bool flag;
 
     void printMainMenu();
+    void printEditMenu();
     void handleAddTask();
     void handleRemoveTask();
     void handleGenerateReport();

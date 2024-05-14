@@ -3,11 +3,11 @@
 int Task::lastID = 1; // Initialize static member
 
 // Constructor
-Task::Task(std::string name, bool status, Priority priority, std::chrono::system_clock::time_point deadline)
+Task::Task(std::string name, std::string description, bool status, Priority priority, DateTime deadline)
 {
     this->id = Task::generateID();
     this->name = name;
-    this->description = "";
+    this->description = description;
     this->status = status;
     this->priority = priority;
     this->deadline = deadline;
@@ -29,6 +29,12 @@ int Task::getId() const
 {
     return id;
 }
+
+void Task::setId(const int newID)
+{
+    this->id = newID;
+}
+
 std::string Task::getName() const
 {
     return name;
@@ -42,7 +48,7 @@ bool Task::getStatus() const
     return status;
 }
 
-std::chrono::system_clock::time_point Task::getDeadline() const
+DateTime Task::getDeadline() const
 {
     return deadline;
 }
@@ -60,7 +66,7 @@ void Task::setStatus(bool status)
     this->status = status;
 }
 
-void Task::setDeadline(std::chrono::system_clock::time_point deadline)
+void Task::setDeadline(DateTime deadline)
 {
     this->deadline = deadline;
 }
@@ -68,6 +74,11 @@ void Task::setDeadline(std::chrono::system_clock::time_point deadline)
 void Task::setLastID(int _lastID)
 {
     lastID = _lastID;
+}
+
+int Task::getLastID()
+{
+    return lastID;
 }
 
 // generate ID
@@ -105,6 +116,27 @@ std::ostream &operator<<(std::ostream &out, const Task::Priority &priority)
     }
     out << "\n";
     return out;
+}
+
+// Overload >> operator to read priority
+std::istream &operator>>(std::istream &in, Task::Priority &priority)
+{
+    char str;
+    in >> str;
+    switch (str)
+    {
+    case 'H':
+        priority = Task::Priority::High;
+        break;
+    case 'M':
+        priority = Task::Priority::Medium;
+        break;
+    case 'L':
+        priority = Task::Priority::Low;
+        break;
+    }
+
+    return in;
 }
 
 std::string to_string(Task::Priority priority)

@@ -5,6 +5,7 @@
 #include <chrono>
 #include <sstream>
 #include <iomanip>
+#include "Date.h"
 
 class Task
 {
@@ -22,7 +23,7 @@ private:
     std::string name;
     std::string description;
     bool status; // true if active, false otherwise
-    std::chrono::system_clock::time_point deadline;
+    DateTime deadline;
     // generate ID
     static int generateID();
 
@@ -33,15 +34,13 @@ private:
 public:
     // Constructor
 
-    // full constructor will be implemented later
-    //   Task(int id, std::string name, std::string description, bool status, int priority, std::chrono::system_clock::time_point deadline);
-    // temporary version without description, priority and deadline
-    Task(std::string name, bool status, Priority priority, std::chrono::system_clock::time_point deadline);
+    Task(std::string name, std::string description, bool status, Priority priority, DateTime deadline);
     // copy constructor
     Task(const Task &otherTask);
 
     // Getters and Setters
     int getId() const;
+    void setId(const int);
 
     std::string getName() const;
 
@@ -56,15 +55,18 @@ public:
     void setStatus(bool status);
 
     static void setLastID(int _lastID);
+    static int getLastID();
 
     void setPriority(Priority priority);
     Priority getPriority() const;
 
     // Overload << operator to print priority
     friend std::ostream &operator<<(std::ostream &os, const Priority &priority);
+    // Overload >> operator to read priority
+    friend std::istream &operator>>(std::istream &os, Priority &priority);
 
-    void setDeadline(std::chrono::system_clock::time_point deadline);
-    std::chrono::system_clock::time_point getDeadline() const;
+    void setDeadline(DateTime deadline);
+    DateTime getDeadline() const;
 
     friend std::string to_string(Priority priority);
 

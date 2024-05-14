@@ -4,11 +4,12 @@
 #include "Task.h"
 #include <string>
 #include "ReportGenerator.h"
+#include "Date.h"
 
 // Function to display the report
 void ReportGenerator::displayReport(const std::vector<Task> &tasks,
-                                    const std::chrono::system_clock::time_point &startDate,
-                                    const std::chrono::system_clock::time_point &endDate,
+                                    const DateTime &startDate,
+                                    const DateTime &endDate,
                                     bool activeTasksOnly)
 {
     std::string reportContent = ReportGenerator::generateAllTasksReport(tasks, startDate, endDate, activeTasksOnly);
@@ -24,8 +25,8 @@ void ReportGenerator::displayReport(const std::vector<Task> &tasks,
 
 // Function to save the report to a file
 void ReportGenerator::saveReportToFile(const std::vector<Task> &tasks,
-                                       const std::chrono::system_clock::time_point &startDate,
-                                       const std::chrono::system_clock::time_point &endDate,
+                                       const DateTime &startDate,
+                                       const DateTime &endDate,
                                        bool activeTasksOnly, const std::string &filename)
 {
     std::string reportContent = ReportGenerator::generateAllTasksReport(tasks, startDate, endDate, activeTasksOnly);
@@ -42,13 +43,13 @@ void ReportGenerator::saveReportToFile(const std::vector<Task> &tasks,
 
 // Function to generate the report content
 std::string ReportGenerator::generateAllTasksReport(const std::vector<Task> &tasks,
-                                                    const std::chrono::system_clock::time_point &startDate,
-                                                    const std::chrono::system_clock::time_point &endDate,
+                                                    const DateTime &startDate,
+                                                    const DateTime &endDate,
                                                     bool activeTasksOnly)
 {
     std::string reportContent = "All Tasks Report:\n";
     int number = 1;
-    for (const auto &task : tasks)
+    for (const Task &task : tasks)
     {
         // Check if the task falls within the specified date range
         bool withinDateRange = task.getDeadline() >= startDate && task.getDeadline() <= endDate;
@@ -63,8 +64,9 @@ std::string ReportGenerator::generateAllTasksReport(const std::vector<Task> &tas
             number++;
             reportContent += "ID: " + std::to_string(task.getId()) + "\n";
             reportContent += "Name: " + task.getName() + "\n";
+            reportContent += "Description: " + task.getDescription() + "\n";
             reportContent += "Priority: " + to_string(task.getPriority()) + "\n";
-            reportContent += "Deadline: " + std::to_string(std::chrono::system_clock::to_time_t(task.getDeadline())) + "\n";
+            reportContent += "Deadline: " + DateTime::toStr(task.getDeadline()) + "\n";
             std::string taskStatus = (task.getStatus() ? "Active" : "Completed");
             reportContent += "Status: " + taskStatus + "\n\n";
         }
@@ -89,8 +91,9 @@ std::string ReportGenerator::generateAllTasksReport(const std::vector<Task> &tas
             number++;
             reportContent += "ID: " + std::to_string(task.getId()) + "\n";
             reportContent += "Name: " + task.getName() + "\n";
+            reportContent += "Description: " + task.getDescription() + "\n";
             reportContent += "Priority: " + to_string(task.getPriority()) + "\n";
-            reportContent += "Deadline: " + std::to_string(std::chrono::system_clock::to_time_t(task.getDeadline())) + "\n";
+            reportContent += "Deadline: " + DateTime::toStr(task.getDeadline()) + "\n";
             std::string taskStatus = (task.getStatus() ? "Active" : "Completed");
             reportContent += "Status: " + taskStatus + "\n\n";
         }

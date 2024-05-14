@@ -4,14 +4,15 @@
 #include <string>
 #include <vector>
 #include "Task.h"
+#include "Date.h"
 
 class ReportGenerator
 {
 public:
     // Function to display the report
     static void displayReport(const std::vector<Task> &tasks,
-                              const std::chrono::system_clock::time_point &startDate,
-                              const std::chrono::system_clock::time_point &endDate,
+                              const DateTime &startDate,
+                              const DateTime &endDate,
                               bool activeTasksOnly);
     static void displayReport(const std::vector<Task> &tasks,
 
@@ -19,8 +20,8 @@ public:
 
     // Function to save the report to a file
     static void saveReportToFile(const std::vector<Task> &tasks,
-                                 const std::chrono::system_clock::time_point &startDate,
-                                 const std::chrono::system_clock::time_point &endDate,
+                                 const DateTime &startDate,
+                                 const DateTime &endDate,
                                  bool activeTasksOnly, const std::string &filename);
     static void saveReportToFile(const std::vector<Task> &tasks,
 
@@ -29,8 +30,8 @@ public:
 private:
     // Function to generate the report content
     static std::string generateAllTasksReport(const std::vector<Task> &tasks,
-                                              const std::chrono::system_clock::time_point &startDate,
-                                              const std::chrono::system_clock::time_point &endDate,
+                                              const DateTime &startDate,
+                                              const DateTime &endDate,
                                               bool activeTasksOnly);
     static std::string generateAllTasksReport(const std::vector<Task> &tasks,
                                               bool activeTasksOnly);
